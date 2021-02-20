@@ -1,0 +1,2 @@
+# gbg
+Generic board-game
