@@ -15,25 +15,25 @@ const data = [
     `${dir}/${name}.js`,
     `const defaults = {};
   
-  /**
-   * ${name}
-   * @param {object} options -
-   */
-  const ${name} = (options) => {
-    options = Object.assign({}, defaults, options);
-    return {};
-  };
-  
-  export { ${name} }`,
+/**
+ * ${name}
+ * @param {object} options -
+ */
+const ${name} = (options) => {
+  options = Object.assign({}, defaults, options);
+  return {};
+};
+
+export { ${name} }`,
   ],
   [
     `${dir}/${name}.test.js`,
     `import { ${name} } from "./${name}";
 
-  test("${name}() returns something", () => {
-      var ${name.toLowerCase()} = ${name}(); // Default ${name}
-      expect(${name.toLowerCase()}).not.toBeUndefined();
-  });`,
+test("${name}() returns something", () => {
+    var ${name.toLowerCase()} = ${name}(); // Default ${name}
+    expect(${name.toLowerCase()}).not.toBeUndefined();
+});`,
   ],
 ];
 
