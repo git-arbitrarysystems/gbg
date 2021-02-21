@@ -22,7 +22,7 @@ const Dice = (options) => {
   if (!values) throw new Error("Invalid option for `values`");
 
   const exposed = {
-    //values: values,
+    //options: options,
     sides: values.length,
     value: values[0],
     roll: () => {

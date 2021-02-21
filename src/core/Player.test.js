@@ -1,6 +1,8 @@
 import { Player } from "./Player";
 
-test("a player has a name", () => {
+describe("A Player", () => {
   const p = Player();
-  expect(p.name).not.toBeUndefined();
+  test("has a name", () => {
+    expect(p.name).not.toBeUndefined();
+  });
 });

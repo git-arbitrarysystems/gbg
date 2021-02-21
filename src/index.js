@@ -1,12 +1,19 @@
 import { Dice } from "./core/Dice";
 import { Player } from "./core/Player";
+import { Board } from "./core/Board";
 
-/**
- *
- * Testing Dice
- *
- * */
+console.log(`
+---------------------------------
+Generic board-game class overview
+---------------------------------
+`);
+
 [
+  /**
+   *
+   * Testing Dice
+   *
+   * */
   Dice(), // Default dice
   Dice({ values: ["A", "B", "C"] }), // Three-sided dice
 ].forEach((dice) => {
@@ -27,4 +34,17 @@ import { Player } from "./core/Player";
   Player({ name: "Jasper" }), // Custom player
 ].forEach((player) => {
   console.log("Player:", player);
+});
+
+/**
+ *
+ * Testing Board
+ *
+ */
+[
+  Board(), // Default board,
+  Board({ loop: true, bidirectional: true }), // Looping board
+].forEach((board) => {
+  console.log("Board:");
+  console.dir(board, { depth: null });
 });

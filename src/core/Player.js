@@ -11,6 +11,7 @@ const Player = (options) => {
   const name = typeof options.name === "string" ? options.name : "Player";
 
   return {
+    //options: options,
     name: name,
   };
 };

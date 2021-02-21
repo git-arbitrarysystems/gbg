@@ -29,11 +29,13 @@ export { ${name} }`,
   [
     `${dir}/${name}.test.js`,
     `import { ${name} } from "./${name}";
-
-test("${name}() returns something", () => {
-    var ${name.toLowerCase()} = ${name}(); // Default ${name}
-    expect(${name.toLowerCase()}).not.toBeUndefined();
-});`,
+describe("A default ${name}", () => {
+  var ${name.toLowerCase()} = ${name}(); // Default ${name}
+  test("is not undefined", () => {
+      expect(${name.toLowerCase()}).not.toBeUndefined();
+  });
+})
+`,
   ],
 ];
 

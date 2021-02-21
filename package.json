@@ -7,9 +7,10 @@
   "author": "^_^@arbitrarysystems.com",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
+    "start": "clear && babel-node src/index.js",
+    "start:watch": "nodemon --exec yarn start",
+    "test": "jest --verbose",
+    "test:watch": "jest --watchAll --verbose",
     "object:create": "node ./scripts/object.create.js"
   },
   "devDependencies": {
