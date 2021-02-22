@@ -52,21 +52,43 @@ const Game = (options) => {
 
   const selectNextPlayer = () => {
     state.currentPlayer =
-      ((state.currentPlayer || -1) + 1) % state.players.length;
+      ((state.currentPlayer === undefined ? -1 : state.currentPlayer) + 1) %
+      state.players.length;
     return state.players[state.currentPlayer];
   };
 
   const handleStep = () => {
-    const step_id = state.flow[state._step];
-    console.log(step_id);
-    switch (step_id) {
+    const SID = state.flow[state._step];
+    console.log(`${SID}`);
+
+    let sum,
+      player = state.players[state.currentPlayer];
+
+    switch (SID) {
       case Events.PLAYER_NEXT:
+        player = selectNextPlayer();
+        console.log("\tNew player:", player);
         break;
       case Events.DICE_ROLL:
+        sum = state.utils.dice.reduce((a, c) => (a += c.roll()), 0);
+        console.log(`\t${state.utils.dice.length} dice rolled ${sum}`);
         break;
       case Events.ANALYSE:
         break;
       case Events.PLAYER_MOVE:
+        sum = state.utils.dice.reduce((a, c) => (a += c.value), 0);
+        var before = player.field,
+          next,
+          i;
+        for (i = 0; i < sum; i++) {
+          next = state.board.getFieldById(player.field).connections[0];
+          if (next) player.field = next;
+        }
+        console.log(
+          `\tPlayer ${player.name} moved from ${before}/${
+            state.board.fields.length - 1
+          } to ${player.field}/${state.board.fields.length - 1}`
+        );
         break;
     }
   };
@@ -84,8 +106,12 @@ const Game = (options) => {
        * Point to the player now at index:0 */
       selectNextPlayer();
       /**
-       * Start the game
-       */
+       * Position players */
+      state.players.forEach((player) => {
+        player.field = state.board.fields[0].id;
+      });
+      /**
+       * Start the game */
       start();
     },
     start: start,

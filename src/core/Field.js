@@ -1,12 +1,12 @@
 const defaults = {
-  index: 0,
+  id: 0,
   connections: [],
 };
 
 /**
  * Field - a place on the board for a player to be
  * @param {object} options -
- * @param {number} options.index - The index for this field
+ * @param {number|string} options.index - The id for this field
  */
 const Field = (options) => {
   options = Object.assign({}, defaults, options);
@@ -15,12 +15,15 @@ const Field = (options) => {
 
   /** Set initial state */
   const state = {
-    index: options.index,
+    id: options.id,
     connections: options.connections,
   };
 
   return {
     state: state,
+    get id() {
+      return state.id;
+    },
     get connections() {
       return state.connections;
     },

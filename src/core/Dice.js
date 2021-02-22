@@ -33,7 +33,9 @@ const Dice = (options) => {
     get value() {
       return state.value;
     },
-    sides: values.length,
+    get sides() {
+      return state.values.length;
+    },
     roll: () => {
       state.value = values[Math.floor(Math.random() * state.values.length)];
       return state.value;

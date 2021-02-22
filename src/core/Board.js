@@ -1,7 +1,7 @@
 import { Field } from "./Field";
 
 const defaults = {
-  fields: 35,
+  fields: 10,
   loop: false,
   bidirectional: false,
 };
@@ -50,7 +50,7 @@ const Board = (options) => {
           if (next !== undefined) connections.push(next);
 
           return Field({
-            index: i,
+            id: i,
             connections: connections,
           });
         })
@@ -61,7 +61,11 @@ const Board = (options) => {
   /** Set initial state */
   const state = {};
 
-  return { state: state, fields: fields };
+  const getFieldById = (id) => {
+    return fields.filter((field) => field.id === id)[0];
+  };
+
+  return { state: state, fields: fields, getFieldById: getFieldById };
 };
 
 export { Board, defaults };
