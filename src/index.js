@@ -1,6 +1,4 @@
-import { Dice } from "./core/Dice";
-import { Player } from "./core/Player";
-import { Board } from "./core/Board";
+import { Dice, Player, Board, Game } from "./core";
 
 console.log(`
 ---------------------------------
@@ -16,6 +14,7 @@ Generic board-game class overview
    * */
   Dice(), // Default dice
   Dice({ values: ["A", "B", "C"] }), // Three-sided dice
+  Dice({ values: ["0", "1"] }), // Coin-flip
 ].forEach((dice) => {
   const results = [];
   for (var i = 0; i < 50; i++) {
@@ -47,4 +46,24 @@ Generic board-game class overview
 ].forEach((board) => {
   console.log("Board:");
   console.dir(board, { depth: null });
+});
+
+/**
+ *
+ * Testing Game
+ *
+ */
+[
+  Game({
+    board: Board(),
+    players: [Player({ name: "Jasper" }), Player({ name: "Ida" })],
+    utils: {
+      dice: [Dice()],
+    },
+  }), // Simple game,
+].forEach((game) => {
+  console.log("Game:");
+  console.dir(game, { depth: null });
+  game.initialize();
+  console.dir(game, { depth: null });
 });

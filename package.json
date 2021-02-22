@@ -11,14 +11,16 @@
     "start:watch": "nodemon --exec yarn start",
     "test": "jest --verbose",
     "test:watch": "jest --watchAll --verbose",
-    "object:create": "node ./scripts/object.create.js"
+    "object:create": "node ./scripts/object.create.js",
+    "jsdoc": "./node_modules/.bin/jsdoc *.js"
   },
   "devDependencies": {
     "@babel/core": "^7.12.17",
     "@babel/node": "^7.12.17",
     "@babel/preset-env": "^7.12.17",
     "@types/jest": "^26.0.20",
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "jsdoc": "^3.6.6"
   },
   "dependencies": {}
 }
