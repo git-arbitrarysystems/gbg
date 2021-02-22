@@ -1,10 +1,11 @@
+import { shuffle } from "../utils";
+
 const defaults = {
   board: null,
   players: [],
   utils: {
     dice: [],
   },
-  currentPlayer: -1,
 };
 
 /**
@@ -24,24 +25,27 @@ const Game = (options) => {
   if (options.utils.dice.length === 0)
     throw new Error("Missing `options.utils.dice`");
 
-  const {
-    board,
-    players,
-    utils: { dice },
-  } = options;
-
-  const exposed = { ...options };
-
   const selectNextPlayer = () => {
-    exposed.currentPlayer = (exposed.currentPlayer + 1) % players.length;
-    return players[exposed.currentPlayer];
+    exposed.currentPlayer =
+      ((exposed.currentPlayer || -1) + 1) % exposed.players.length;
+    return exposed.players[exposed.currentPlayer];
   };
 
-  exposed.initialize = () => {
-    selectNextPlayer();
+  const exposed = {
+    players: options.players,
+    board: options.board,
+    utils: { dice: options.utils.dice },
+    initialize: () => {
+      /**
+       * Shuffle players */
+      exposed.players = shuffle(exposed.players);
+      /**
+       * Point to the player now at index:0 */
+      selectNextPlayer();
+    },
   };
 
   return exposed;
 };
 
-export { Game };
+export { Game, defaults };

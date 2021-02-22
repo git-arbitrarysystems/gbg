@@ -17,4 +17,4 @@ const Field = (options) => {
   };
 };
 
-export { Field };
+export { Field, defaults };

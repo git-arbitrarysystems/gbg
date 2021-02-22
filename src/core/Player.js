@@ -16,4 +16,4 @@ const Player = (options) => {
   };
 };
 
-export { Player };
+export { Player, defaults };

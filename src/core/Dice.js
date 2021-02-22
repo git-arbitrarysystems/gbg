@@ -34,4 +34,4 @@ const Dice = (options) => {
   return exposed;
 };
 
-export { Dice };
+export { Dice, defaults };
