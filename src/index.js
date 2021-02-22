@@ -66,4 +66,9 @@ Generic board-game class overview
   console.dir(game, { depth: null });
   game.initialize();
   console.dir(game, { depth: null });
+
+  /** Test some steps */
+  for (var i = 0; i < 20; i++) {
+    game.step();
+  }
 });
