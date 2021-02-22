@@ -12,26 +12,33 @@ const defaults = {
 const Dice = (options) => {
   options = Object.assign({}, defaults, options);
 
+  /** Sanitize */
   const values =
     typeof options.values === "number"
-      ? [...Array(options.values)].map((v, i) => i + 1)
+      ? [...Array(options.values)].map((v, i) => i + 1) // Default dice with n numbers
       : Array.isArray(options.values)
-      ? options.values
+      ? options.values // Some custom values
       : undefined;
 
   if (!values) throw new Error("Invalid option for `values`");
 
-  const exposed = {
-    //options: options,
-    sides: values.length,
+  /** Set initial state */
+  const state = {
+    values: values,
     value: values[0],
-    roll: () => {
-      exposed.value = values[Math.floor(Math.random() * values.length)];
-      return exposed.value;
-    },
   };
 
-  return exposed;
+  return {
+    state: state,
+    get value() {
+      return state.value;
+    },
+    sides: values.length,
+    roll: () => {
+      state.value = values[Math.floor(Math.random() * state.values.length)];
+      return state.value;
+    },
+  };
 };
 
 export { Dice, defaults };

@@ -1,7 +1,7 @@
 import { Field } from "./Field";
 
 const defaults = {
-  fields: 5,
+  fields: 35,
   loop: false,
   bidirectional: false,
 };
@@ -16,6 +16,7 @@ const defaults = {
 const Board = (options) => {
   options = Object.assign({}, defaults, options);
 
+  /** Sanitize */
   const length =
     typeof options.fields === "number"
       ? options.fields
@@ -24,7 +25,7 @@ const Board = (options) => {
       : undefined;
   if (length === undefined) throw new Error("Invalid value for `fields`");
 
-  const fields =
+  var fields =
     typeof options.fields === "number"
       ? [...Array(options.fields)].map((v, i) => {
           /**
@@ -57,10 +58,10 @@ const Board = (options) => {
       ? options.fields
       : undefined;
 
-  return {
-    //options: options,
-    fields: fields,
-  };
+  /** Set initial state */
+  const state = {};
+
+  return { state: state, fields: fields };
 };
 
 export { Board, defaults };

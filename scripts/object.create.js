@@ -13,7 +13,8 @@ if (!name) {
 const data = [
   [
     `${dir}/${name}.js`,
-    `const defaults = {};
+    `
+const defaults = {};
   
 /**
  * ${name}
@@ -21,14 +22,25 @@ const data = [
  */
 const ${name} = (options) => {
   options = Object.assign({}, defaults, options);
-  return {};
+
+  /** Sanitize */
+
+  /** Set initial state */
+  const state = {}
+
+  return {
+    state:state
+  };
 };
 
-export { ${name} }`,
+export { ${name} }
+`,
   ],
   [
     `${dir}/${name}.test.js`,
-    `import { ${name} } from "./${name}";
+    `
+import { ${name} } from "./${name}";
+
 describe("A default ${name}", () => {
   var ${name.toLowerCase()} = ${name}(); // Default ${name}
   test("is not undefined", () => {
@@ -52,11 +64,3 @@ data.forEach((pair) => {
     }
   });
 });
-
-// const
-// fs.writeFile(`${dir}/${name}.js`, object, () => {
-//   console.log(`Created ${dir}/${name}.js...OK`);
-// });
-// fs.writeFile(`${dir}/${name}.test.js`, test, () => {
-//   console.log(`Created ${dir}/${name}.test.js...OK`);
-// });

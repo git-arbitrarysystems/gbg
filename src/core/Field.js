@@ -10,10 +10,20 @@ const defaults = {
  */
 const Field = (options) => {
   options = Object.assign({}, defaults, options);
-  return {
-    //options: options,
+
+  /** Sanitize */
+
+  /** Set initial state */
+  const state = {
     index: options.index,
     connections: options.connections,
+  };
+
+  return {
+    state: state,
+    get connections() {
+      return state.connections;
+    },
   };
 };
 

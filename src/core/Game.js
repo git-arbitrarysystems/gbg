@@ -28,27 +28,36 @@ const Game = (options) => {
   if (options.utils.dice.length === 0)
     throw new Error("Missing `options.utils.dice`");
 
+  /** Initial state */
+  const state = {
+    players: options.players,
+    board: options.board,
+    utils: { dice: options.utils.dice },
+    flow: options.flow,
+    _step: 0,
+  };
+
   const start = () => {
-    exposed.started = true;
+    state.started = true;
   };
   const stop = () => {
-    exposed.started = false;
+    state.started = false;
   };
   const pause = () => {
-    exposed.paused = true;
+    state.paused = true;
   };
   const unpause = () => {
-    exposed.paused = false;
+    state.paused = false;
   };
 
   const selectNextPlayer = () => {
-    exposed.currentPlayer =
-      ((exposed.currentPlayer || -1) + 1) % exposed.players.length;
-    return exposed.players[exposed.currentPlayer];
+    state.currentPlayer =
+      ((state.currentPlayer || -1) + 1) % state.players.length;
+    return state.players[state.currentPlayer];
   };
 
   const handleStep = () => {
-    const step_id = exposed.flow[exposed._step];
+    const step_id = state.flow[state._step];
     console.log(step_id);
     switch (step_id) {
       case Events.PLAYER_NEXT:
@@ -62,18 +71,15 @@ const Game = (options) => {
     }
   };
   const next = () => {
-    exposed._step = (exposed._step + 1) % exposed.flow.length;
+    state._step = (state._step + 1) % state.flow.length;
   };
 
-  const exposed = {
-    players: options.players,
-    board: options.board,
-    utils: { dice: options.utils.dice },
-    flow: options.flow,
+  return {
+    state: state,
     initialize: () => {
       /**
        * Shuffle players */
-      exposed.players = shuffle(exposed.players);
+      state.players = shuffle(state.players);
       /**
        * Point to the player now at index:0 */
       selectNextPlayer();
@@ -82,14 +88,15 @@ const Game = (options) => {
        */
       start();
     },
-    _step: 0,
+    start: start,
+    stop: stop,
+    pause: pause,
+    unpause: unpause,
     step: () => {
       handleStep();
       next();
     },
   };
-
-  return exposed;
 };
 
 export { Game, defaults };
